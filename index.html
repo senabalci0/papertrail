@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f2ea">
+  <meta name="description" content="Keep track of the books you own, are reading, or want to read, and write down what you thought.">
+  <title>papertrail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#" aria-label="papertrail home">papertrail<span class="accent">.</span></a>
+    <nav class="main-nav" aria-label="Sections">
+      <a class="nav-link" href="#library">Library</a>
+      <a class="nav-link" href="#insights">Stats</a>
+      <a class="nav-link" href="#reviews">Reviews</a>
+    </nav>
+    <div class="topbar-actions"><button class="icon-btn" id="themeToggle" type="button" aria-label="Switch between light and dark mode">◐</button><button class="btn" id="openAddModal" type="button">Add a book</button></div>
+  </header>
+
+  <main class="page">
+    <section class="welcome">
+      <div class="welcome-copy">
+        <h1>Every book you've read, <em>in one place.</em></h1>
+        <p class="lead">Put your books on a shelf, mark what you're reading, and write down your thoughts.</p>
+        <a href="#library" class="text-link">Go to my shelf</a>
+      </div>
+
+      <div class="welcome-art" role="img" aria-label="Illustration of four books standing on a shelf">
+        <div class="sun"></div>
+        <div class="art-books">
+          <div class="art-book art-book-one"><span>The Art of<br>Slow Living</span></div>
+          <div class="art-book art-book-two"><span>Little<br>Women</span></div>
+          <div class="art-book art-book-three"><span>Wild<br>Flowers</span></div>
+          <div class="art-book art-book-four"><span>The Secret<br>Garden</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Your reading so far">
+      <div class="stat"><strong id="totalBooks">0</strong><span>books on your shelf</span></div>
+      <div class="stat"><strong id="finishedBooks">0</strong><span>finished</span></div>
+      <div class="stat"><strong id="averageRating">–</strong><span>average rating</span></div>
+    </section>
+
+    <section class="section" id="library">
+      <div class="section-heading">
+        <h2>My shelf</h2>
+      </div>
+
+      <div class="toolbar">
+        <div class="filter-tabs" role="group" aria-label="Filter books">
+          <button class="filter-tab selected" data-filter="all" type="button">All</button>
+          <button class="filter-tab" data-filter="reading" type="button">Reading now</button>
+          <button class="filter-tab" data-filter="finished" type="button">Finished</button>
+          <button class="filter-tab" data-filter="want" type="button">Want to read</button>
+        </div>
+        <div class="toolbar-right">
+        <label class="visually-hidden" for="sortSelect">Sort books</label>
+        <select id="sortSelect" class="sort-select"><option value="added">Newest first</option><option value="title">Title A–Z</option><option value="author">Author A–Z</option><option value="rating">Highest rated</option></select>
+        <label class="search-box">
+          <span class="visually-hidden">Search books</span>
+          <input id="searchInput" type="search" placeholder="Search by title or author">
+        </label>
+        </div>
+      </div>
+
+      <p class="shelf-count" id="shelfCount" aria-live="polite"></p>
+      <div id="bookshelf" class="bookshelf"></div>
+      <div class="shelf-wood"></div>
+    </section>
+
+    <section class="section" id="insights">
+      <div class="section-heading"><h2>Reading stats</h2></div>
+      <div id="insightsGrid" class="insights"></div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="section-heading">
+        <h2>My reviews</h2>
+      </div>
+      <div id="reviewList" class="review-grid"></div>
+    </section>
+
+    <footer class="footer">
+      <a class="logo" href="#">papertrail<span class="accent">.</span></a>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="bookModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeAddModal" type="button" aria-label="Close">×</button>
+      <h2 id="modalTitle">Add a book</h2>
+
+      <form id="bookForm">
+        <label class="field-label" for="bookTitle">Title</label>
+        <input id="bookTitle" name="title" required maxlength="120" placeholder="The Secret History">
+        <button type="button" class="text-button" id="lookupButton">Find author and cover</button>
+
+        <label class="field-label" for="bookAuthor">Author</label>
+        <input id="bookAuthor" name="author" required maxlength="100" placeholder="Donna Tartt">
+
+        <label class="field-label" for="bookCover">Cover image link <span class="optional">(optional)</span></label>
+        <input id="bookCover" name="cover" type="url" placeholder="https://…">
+
+        <label class="field-label" for="bookDescription">Notes about the book <span class="optional">(optional)</span></label>
+        <textarea id="bookDescription" name="description" maxlength="1200" rows="3" placeholder="What is it about? Why did you pick it up?"></textarea>
+
+        <span class="field-label" id="colorLabel">Spine color</span>
+        <div class="color-picker" id="colorPicker" role="group" aria-labelledby="colorLabel"></div>
+
+        <label class="field-label" for="bookStatus">Status</label>
+        <select id="bookStatus" name="status">
+          <option value="want">Want to read</option>
+          <option value="reading">Reading now</option>
+          <option value="finished">Finished</option>
+        </select>
+
+        <button type="submit" class="btn btn-block" id="bookSubmit">Add to shelf</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="detailModal" hidden>
+    <section class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" id="closeDetailModal" type="button" aria-label="Close">×</button>
+      <div id="detailContent"></div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
