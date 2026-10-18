@@ -50,4 +50,3 @@ Papertrail aims to make digital book tracking feel more personal and visual by c
 
 ---
 
-*Built with a love for books and thoughtful digital experiences.* 
