@@ -47,7 +47,6 @@ button { cursor: pointer; }
   clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* ---------- Layout ---------- */
 
 .page { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 .section { padding-top: 80px; }
@@ -65,7 +64,6 @@ button { cursor: pointer; }
 .nav-link { color: var(--muted); font-size: 15px; transition: color .2s; }
 .nav-link:hover { color: var(--ink); }
 
-/* ---------- Buttons ---------- */
 
 .btn {
   border: 0; border-radius: var(--radius-sm);
@@ -89,7 +87,6 @@ button { cursor: pointer; }
 }
 .text-link:hover { color: var(--accent); }
 
-/* ---------- Welcome ---------- */
 
 .welcome {
   display: grid; grid-template-columns: 1fr 1fr; align-items: center;
@@ -130,7 +127,6 @@ button { cursor: pointer; }
 .art-book-three { height: 188px; background: #d3a4a0; }
 .art-book-four { height: 160px; background: #b8a4c2; }
 
-/* ---------- Stats ---------- */
 
 .stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -143,7 +139,6 @@ button { cursor: pointer; }
 .stat span { color: var(--muted); font-size: 14px; }
 .star { color: var(--gold); font: 20px var(--sans); }
 
-/* ---------- Section headings and toolbar ---------- */
 
 .section-heading {
   display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
@@ -169,7 +164,6 @@ button { cursor: pointer; }
 }
 .shelf-count { margin: 20px 0 10px; color: var(--muted); font-size: 14px; }
 
-/* ---------- Bookshelf ---------- */
 
 .bookshelf {
   min-height: 260px; padding: 28px 24px 0;
@@ -231,7 +225,6 @@ button { cursor: pointer; }
 .empty-shelf h3 { font-size: 24px; margin-bottom: 6px; }
 .empty-shelf p { color: var(--muted); margin-bottom: 18px; }
 
-/* ---------- Reviews ---------- */
 
 .review-grid {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -267,7 +260,6 @@ button { cursor: pointer; }
 .footer .logo { font-size: 20px; }
 .footer p { color: var(--muted); font-size: 14px; }
 
-/* ---------- Modals ---------- */
 
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 30; padding: 18px; overflow-y: auto;
@@ -353,7 +345,6 @@ button { cursor: pointer; }
 @keyframes bookAppear { from { opacity: 0; transform: translateY(12px); } }
 @keyframes modalIn { from { opacity: 0; transform: translateY(8px); } }
 
-/* ---------- Responsive ---------- */
 
 @media (max-width: 760px) {
   .page { padding: 0 20px; }
@@ -387,7 +378,6 @@ button { cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-/* ---------- Dark mode ---------- */
 
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -405,7 +395,6 @@ button { cursor: pointer; }
   --shadow: 0 18px 50px rgba(0, 0, 0, .45);
 }
 
-/* ---------- Added features ---------- */
 
 .topbar-actions { display: flex; align-items: center; gap: 10px; }
 .icon-btn {
