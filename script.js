@@ -36,7 +36,6 @@ let activeBookId = null;
 let selectedRating = 0;
 let toastTimer;
 
-/* ---------- Helpers ---------- */
 
 const createId = () =>
   crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -75,7 +74,6 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("visible"), 2800);
 }
 
-/* ---------- Storage ---------- */
 
 function sanitizeBooks(list) {
   if (!Array.isArray(list)) return [];
@@ -112,7 +110,6 @@ function saveBooks() {
   }
 }
 
-// Runs a change and rolls it back if saving fails.
 function commit(change) {
   const backup = structuredClone(books);
   change();
@@ -121,7 +118,6 @@ function commit(change) {
   return false;
 }
 
-/* ---------- Modals ---------- */
 
 function openModal(modal) {
   modal.hidden = false;
@@ -151,7 +147,6 @@ function renderColorPicker() {
   setColor(selectedColor);
 }
 
-// Opens the form empty (add) or filled in (edit).
 function openBookForm(book = null) {
   editingId = book ? book.id : null;
   bookForm.reset();
@@ -172,7 +167,6 @@ function openBookForm(book = null) {
   setTimeout(() => bookForm.title.focus(), 50);
 }
 
-/* ---------- Rendering ---------- */
 
 function getVisibleBooks() {
   const query = $("#searchInput").value.trim().toLocaleLowerCase();
@@ -348,7 +342,6 @@ function openBookDetails(id) {
   openModal(detailModal);
 }
 
-/* ---------- Actions ---------- */
 
 function handleBookSubmit(event) {
   event.preventDefault();
@@ -459,7 +452,6 @@ function editActiveBook() {
   openBookForm(book);
 }
 
-/* ---------- Events ---------- */
 
 bookForm.addEventListener("submit", handleBookSubmit);
 
@@ -542,7 +534,6 @@ $("#detailContent").addEventListener("submit", event => {
   if (event.target.id === "reviewForm") handleReviewSubmit(event);
 });
 
-/* ---------- Sorting, stats, theme, backup, lookup ---------- */
 
 const GOAL_KEY = "papertrail-goal";
 const THEME_KEY = "papertrail-theme";
@@ -556,7 +547,6 @@ const SORTERS = {
   rating: (a, b) => bookRating(b) - bookRating(a)
 };
 
-// Remembers when a book was first marked finished, for the stats.
 function stampFinished(book) {
   if (book.status === "finished" && !book.finishedAt) book.finishedAt = new Date().toISOString();
   return book;
@@ -623,14 +613,14 @@ function initialTheme() {
   try {
     const saved = localStorage.getItem(THEME_KEY);
     if (saved) return saved;
-  } catch { /* storage unavailable */ }
+  } catch {  }
   return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 $("#themeToggle").addEventListener("click", () => {
   const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
   applyTheme(next);
-  try { localStorage.setItem(THEME_KEY, next); } catch { /* storage unavailable */ }
+  try { localStorage.setItem(THEME_KEY, next); } catch {  }
 });
 
 $("#exportButton").addEventListener("click", () => {
